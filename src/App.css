@@ -359,6 +359,11 @@ footer {
   color: #000;
 }
 
+.category {
+  font-weight: bold;
+  background-color: #ffe7a8;
+}
+
 @keyframes slide-down {
   from {
     opacity: 0;
