@@ -1,11 +1,19 @@
 import React from "react"
 import { Heart } from "react-feather";
 
-const QuoteCard = ({quote, addToFavorites}) => {
+const QuoteCard = ({quote, addToFavorites, favoriteQuotes}) => {
+
+
+  // Use the find method to check if the quote is already in favoriteQuotes
+  const alreadyFavorite = favoriteQuotes.find((favorite) => favorite.id === quote.id);
+
+  // Use a ternary operator to set faveStyle based on whether it's a favorite or not
+  const faveStyle = alreadyFavorite ? "#333" : "";
+
 
 const handleAddFavorite = () => {
-   addToFavorites(quote.id)
-}
+  addToFavorites(quote.id)
+};
 
 return (
   <article className="quote-card">
@@ -21,8 +29,8 @@ return (
    <footer>
        <p className="author">{quote.author}</p>
        <p className="add-favorite" onClick={handleAddFavorite}>
-        <Heart />
-       </p>
+       <Heart style={{ fill: faveStyle}}  />      
+        </p>
    </footer>
   </article>
  );
