@@ -4,16 +4,18 @@ import Footer from "./components/Footer";
 import { Loader } from "react-feather";
 import Quotes from "./components/quotes/Quotes";
 import FavoriteQuotes from "./components/quotes/FavoriteQuotes";
+import Message from "./components/Message";
 import "./App.css";
 
 function App() {
-  console.log("Rendering App");
 
     // State for storing quotes and loading status
   const [quotes, setQuotes] = useState([])
   const [loading, setLoading] = useState(false)
   const [category, setCategory] = useState("All");
   const [favoriteQuotes, setFavoriteQuotes] = useState([]);
+  const [messageText, setMessageText] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
  
      // URL for fetching quotes
   const quotesUrl =
@@ -52,18 +54,22 @@ function App() {
 
      const addToFavorites = (quoteID) => {
       const selectedQuote = quotes.find((quote) => quote.id === quoteID);
+      const alreadyFavorite = favoriteQuotes.some((quote) => quote.id === selectedQuote.id);
+
     
       if (favoriteQuotes.length < maxFaves) {
-        const alreadyFavorite = favoriteQuotes.some((quote) => quote.id === selectedQuote.id);
     
         if (alreadyFavorite) {
-          console.log("This quote is already in your favorites! Choose another.");
+          setMessageText("This quote is already in your favorites! Choose another.")
+          setShowMessage(true);
         } else {
           setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
-          console.log("Added to favorites!");
+          setMessageText("Added to favorites!");
+          setShowMessage(true);
         }
-      } else {
-        console.log("Max number of Favorite Quotes reached. Please delete one.");
+      }  else {
+          setMessageText("Max number of Favorite Quotes reached. Please delete one.");
+          setShowMessage(true);
       }
     };
 
@@ -72,8 +78,13 @@ function App() {
        setFavoriteQuotes(updatedFavorites);
     };
 
+    const removeMessage = () => {
+         setShowMessage(false);
+    };
+
     return (
     <div className='App'>
+      {showMessage && <Message text={messageText}  removeMessage={removeMessage}/>}
       <Header />
       <main> 
         <FavoriteQuotes 
