@@ -56,21 +56,16 @@ function App() {
       const selectedQuote = quotes.find((quote) => quote.id === quoteID);
       const alreadyFavorite = favoriteQuotes.some((quote) => quote.id === selectedQuote.id);
 
-    
-      if (favoriteQuotes.length < maxFaves) {
-    
-        if (alreadyFavorite) {
-          setMessageText("This quote is already in your favorites! Choose another.")
-          setShowMessage(true);
-        } else {
-          setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
-          setMessageText("Added to favorites!");
-          setShowMessage(true);
+      
+      if (alreadyFavorite) {
+        setMessageText("This quote is already in your favorites! Choose another.");
+      } else if (favoriteQuotes.length >= maxFaves) {
+        setMessageText("Max number of Favorite Quotes reached. Please delete one.");
+      } else {
+        setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
+        setMessageText("Added to favorites!");
+        setShowMessage(true);
         }
-      }  else {
-          setMessageText("Max number of Favorite Quotes reached. Please delete one.");
-          setShowMessage(true);
-      }
     };
 
     const removeFromFavorites = (quoteID) => {
@@ -84,7 +79,7 @@ function App() {
 
     return (
     <div className='App'>
-      {showMessage && <Message text={messageText}  removeMessage={removeMessage}/>}
+      {showMessage && <Message messageText={messageText}  removeMessage={removeMessage}/>}
       <Header />
       <main> 
         <FavoriteQuotes 
