@@ -10,11 +10,13 @@ const remainingSpace = maxFaves - favoriteQuotes.length;
           <h3>Top 3 favorite quotes</h3>
         {favoriteQuotes.length > 0 && (
           <ul>
-            {favoriteQuotes.map((quote) => (
+            {favoriteQuotes.map((quote, index) => (
               <FavoriteQuoteCard 
               key={quote.id} 
               quote={quote} 
-              removeFromFavorites={removeFromFavorites} />
+              removeFromFavorites={removeFromFavorites}
+              listPosition={index + 1}
+              />
             ))}
           </ul>
                 )}
