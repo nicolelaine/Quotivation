@@ -65,8 +65,10 @@ function App() {
       
       if (alreadyFavorite) {
         setMessageText("This quote is already in your favorites! Choose another.");
+        setShowMessage(true);
       } else if (favoriteQuotes.length >= maxFaves) {
         setMessageText("Max number of Favorite Quotes reached. Please delete one.");
+        setShowMessage(true);
       } else {
         setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
         setMessageText("Added to favorites!");
