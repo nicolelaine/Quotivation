@@ -2,7 +2,7 @@ import React from "react";
 import FavoriteQuoteCard from "./FavoriteQuoteCard";
 
 const FavoriteQuotes = ({favoriteQuotes, maxFaves, removeFromFavorites}) => {
-
+const remainingSpace = maxFaves - favoriteQuotes.length;
 
     return (
     <section className="favorite-quotes">
@@ -11,16 +11,23 @@ const FavoriteQuotes = ({favoriteQuotes, maxFaves, removeFromFavorites}) => {
         {favoriteQuotes.length > 0 && (
           <ul>
             {favoriteQuotes.map((quote) => (
-              <FavoriteQuoteCard key={quote.id} quote={quote} removeFromFavorites={removeFromFavorites} />
+              <FavoriteQuoteCard 
+              key={quote.id} 
+              quote={quote} 
+              removeFromFavorites={removeFromFavorites} />
             ))}
           </ul>
                 )}
               <div className="favorite-quotes-description">
-                <p>
-                  You can select up to three quotes from the options below. 
-                  <br/> 
-                  Once you choose, they will appear here.
-                </p>
+                {remainingSpace > 0 && (
+                  <p>
+                  You can add {remainingSpace} {""}
+                  {remainingSpace === 1 ? "more quote" : "more quotes"} to your favorites by selecting from the options below.
+                  </p>
+                )}
+                {remainingSpace === 0 &&  (
+                  <p></p>
+                )}
               </div>
             
           </div>
